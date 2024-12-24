@@ -1,4 +1,4 @@
-
 .env
+/tax
 /vector_store
 .cache_prompt.sqlite
