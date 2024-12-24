@@ -8,11 +8,18 @@
 
 ## 💻 팀 소개
 
-**팀명:** [팀명]
+# 팀명: Home Tax 
+
+![TaxTaxesGIF](https://github.com/user-attachments/assets/9fb562c4-7193-4f3c-87a8-68022176d9d8)
+
 
 | [노원재] | [박서윤] | [박유나] | [유경상] | [전하연] |
 |:-------:|:-------:|:-------:|:-------:|:-------:|
-|         |         |         |         |         |
+|    ![TaxesTaxEvasionGIF](https://github.com/user-attachments/assets/6933ed25-632f-42a2-a53c-a02c91928555)
+     |     ![CleanEnergyHappyTaxDayGIF](https://github.com/user-attachments/assets/7109d3fd-e23f-455b-9623-f194be72639c)
+    |     ![TaxDayMoneyGIF](https://github.com/user-attachments/assets/80dc5c60-0d5c-4fea-a43d-28936d635f4e)
+    |     ![TheSimpsonsTaxTimeGIF](https://github.com/user-attachments/assets/052dc98b-907e-480d-92ac-33cef1d67940)
+    |         |
 
 ---
 
