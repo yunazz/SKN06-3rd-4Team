@@ -60,6 +60,10 @@
 - **결과:** 시스템이 제공하는 답변의 정확성과 일관성을 지속적으로 모니터링하여 시스템을 개선
 
 평가 지표
+faithfulness(신뢰성)
+answer_relevancy(답변 적합성)
+context_precision(문맥 정확성)
+context_recall(문맥 재현률)
 
 
 ---
