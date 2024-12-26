@@ -138,6 +138,20 @@
 #### 2.3. 벡터 데이터베이스 구현 
 - 전처리된 데이터를 벡터화
 - 선택한 벡터 데이터베이스에 데이터 저장
+  ```
+  COLLECTION_NAME = "tax_law"
+  PERSIST_DIRECTORY = "tax"
+
+  def set_vector_store(documents):
+    embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
+
+    return Chroma.from_documents(
+        documents=documents,
+        embedding=embedding_model,
+        collection_name=COLLECTION_NAME,
+        persist_directory=PERSIST_DIRECTORY
+    )
+    ```
 
 #### 2.4. RAG 구현
 - 질의 처리 로직 구현
