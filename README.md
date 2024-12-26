@@ -2,20 +2,22 @@
 
 
 # 👩‍⚖️세법 질의응답 시스템👨‍⚖️ 
-
-**프로젝트명:** 세법 확인 챗봇 시스템  
+ 
 **개발기간:** 2024.12.24 - 2024.12.26
 
 ## 💻 팀 소개
 
 # 팀명: 절세미인
 
-![TaxTaxesGIF](https://github.com/user-attachments/assets/9fb562c4-7193-4f3c-87a8-68022176d9d8)
+<img src="https://github.com/user-attachments/assets/df44c785-4e29-44ce-ab52-48ed3abee8d7" width="600" height="500">
+
 
 
 | [노원재] | [박서윤] | [박유나] | [유경상] | [전하연] |
 |:-------:|:-------:|:-------:|:-------:|:-------:|
-|    절세남    |     절세미녀    |    절세미녀     |     절세미남    |     절세미녀    |
+|<img src="https://github.com/user-attachments/assets/83778ae7-cead-4f34-ab0c-27d50300b23f" width="160" height="160">|<img src="https://github.com/user-attachments/assets/0889164e-66b0-4df2-b3f7-4ede25b6ee80"  width="160" height="160">|<img src="https://github.com/user-attachments/assets/faf2d9c0-a945-4604-98bb-af2b1907acae"   width="160" height="160">|<img src="https://github.com/user-attachments/assets/bd07a4f7-65aa-49c2-9cfd-e54f41d08282"  width="160" height="160">|<img src="https://github.com/user-attachments/assets/087fcd42-4884-425d-a7b0-fe866ff18b03"  width="160" height="160">|
+|    절세남    |     절세미녀    |    절세미녀     |     절세남    |     절세미녀    |
+
 
 ---
 
@@ -37,14 +39,14 @@
 ### 📌 2. 상세 내용
 
 #### 2.1. 데이터 수집 및 전처리
-- **법제처**와 **국세청**에서 세법 관련 데이터 다운로드
+-  [법제처](https://www.law.go.kr/LSW/main.html)와 [국세청](https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2304&cntntsId=238938)에서 세법 관련 데이터 다운로드
   
 - **pdf 로드**
   - 2024_핵심_개정세법.pdf, 연말정산_신고안내.pdf, 연말정산_주택자금·월세액_공제의이해.pdf, 주요_공제_항목별_계산사례.pdf
-    #### pdf 로드(tabula + PyMuPDF)
-    tabula를 통해 표의 내용 읽어옴. <br>
-    PyMuPDF를 통해 text 읽어옴. <br>
-    필요없는 페이지 제외하고 읽어옴.
+    #### - pdf 로드(tabula + PyMuPDF)
+    tabula를 통해 표의 내용 불러오기 <br>
+    PyMuPDF를 통해 text 불러오기 <br>
+    필요없는 페이지 제외
     ```python3
     try:
     text_loader = PyMuPDFLoader(pdf_file)
@@ -76,7 +78,7 @@
     ```
     ##### - < >로 감싸진  텍스트 제거
     ```python3
-    r'<[\s\S]*?>'   # < >로 감싸진 텍스트 제거
+    r'<[\s\S]*?>'  
     ```
     ##### - 페이지 번호 패턴 제거
     ```python3
@@ -174,24 +176,48 @@
   
   # Chain 구성 retriever(관련문서 조회) -> prompt_template(prompt 생성) -> model(정답) -> output parser
   chain = {"context":retriever, "question": RunnablePassthrough()} | prompt_template | model | parser
-```
-
-
-#### 2.5. LLM 연동
-- 선택한 LLM과 RAG 시스템 연동
-- 검색된 정보를 바탕으로 답변 생성 로직 구현
+  ```
   
 ---
 ### 📌 3. 성능 검증 및 평가
 - **검증 방법:** 사용자가 입력한 질문과 챗봇의 응답을 비교하고, 실제 법령에 명시된 내용을 확인하여 정확성, 관련성,  신뢰성 등 평가 지표 설정 및 측정
 - **결과:** 시스템이 제공하는 답변의 정확성과 일관성을 지속적으로 모니터링하여 시스템을 개선
 
-평가 지표
-faithfulness(신뢰성)
-answer_relevancy(답변 적합성)
-context_precision(문맥 정확성)
-context_recall(문맥 재현률)
+```python
+# LangChain 모델 래핑
+langchain_model = LangchainLLMWrapper(model)
 
+# 테스트 데이터 준비
+test_data = [
+    {
+        "question": "개별소비세법 제1조가 무엇인가요?",
+        "answer": chain.invoke("개별소비세법 제1조가 무엇인가요?"),
+        "contexts": [doc.page_content for doc in retriever.get_relevant_documents("개별소비세법 제1조가 무엇인가요?")],
+        "ground_truths": ["개별소비세는 특정한 물품, 특정한 장소 입장행위(入場行爲), 특정한 장소에서의 유흥음식행위(遊興飮食行爲) 및 특정한 장소에서의 영업행위에 대하여 부과한다."],
+        "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("개별소비세법 제1조가 무엇인가요?")])
+    }, ...추가로 검증할 데이터
+]
+```
+```python
+# Dataset 생성
+dataset = Dataset.from_list(test_data)
+
+# 평가 실행
+result = evaluate(
+    dataset,
+    metrics=[
+        faithfulness,       # 신뢰성
+        answer_relevancy,   # 답변 적합성
+        context_precision,  # 문맥 정확성
+        context_recall      # 문맥 재현률
+    ],
+    llm=langchain_model)
+```
 
 ---
-
+### 📌 4. 한 줄 회고📝
+ - **노원재**: 어렵군요..
+ - **박서윤**: 이제까지 한 프로젝트 중에서 제일 재밌는데 잘 모르겠다,,,
+ - **박유나**:
+ - **유경상**: 
+ - **전하연**: 쉽지 않다..
