@@ -9,7 +9,8 @@
 
 # 팀명: 절세미인
 
-<img src="https://github.com/user-attachments/assets/9e4e832f-02db-4e7f-bbbf-a06a6e49be12" width="600" height="500">
+<img src="https://github.com/user-attachments/assets/df44c785-4e29-44ce-ab52-48ed3abee8d7" width="600" height="500">
+
 
 
 | [노원재] | [박서윤] | [박유나] | [유경상] | [전하연] |
