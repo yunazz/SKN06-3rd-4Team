@@ -41,7 +41,7 @@
   
 - **pdf 로드**
   - 2024_핵심_개정세법.pdf, 연말정산_신고안내.pdf, 연말정산_주택자금·월세액_공제의이해.pdf, 주요_공제_항목별_계산사례.pdf
-    #### pdf 로드(tabula + PyMuPDF)
+    #### - pdf 로드(tabula + PyMuPDF)
     tabula를 통해 표의 내용 불러오기 <br>
     PyMuPDF를 통해 text 불러오기 <br>
     필요없는 페이지 제외
