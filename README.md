@@ -315,7 +315,7 @@ test_data_5 = {
 }
 ```
 - 결과<br/>
-<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-4Team/blob/main/image/test_result_5.png" width="160" height="160">
+<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-4Team/blob/main/image/test_result_5.png">
 
 ```python
 # Dataset 생성
