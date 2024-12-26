@@ -114,7 +114,7 @@ def load_process_split_doc_law(filename):
     split_pattern = r"\s*\n(제\d+조(?:의\d+)?(?:\([^)]*\))?)(?=\s|$)"
     chunks = re.split(split_pattern, full_text)
 
-    chunk_docs = []  # 최종 return 할 list
+    chunk_docs = []
     connected_chunks = [] 
     current_chunk = ""
     is_buchik_section = False 
