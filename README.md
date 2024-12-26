@@ -270,7 +270,7 @@ test_data_1 = {
     "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("주세법의 목적은 무엇인가요?")])
 }
 ```
-결과
+- 결과
 
 ```python
 test_data_2 = {
@@ -281,7 +281,7 @@ test_data_2 = {
   "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("인적공제에서 공제금액을 알려주세요.")])
 }
 ```
-결과
+- 결과
 
 ```python
 test_data_3 = {
@@ -292,7 +292,7 @@ test_data_3 = {
   "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("교육세법법 제1조가 무엇인가요?")])
 }
 ```
-결과
+- 결과
 
 ```python
 test_data_4 = {
@@ -303,7 +303,7 @@ test_data_4 = {
   "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("개정세법 중 기업세금 감면제도의 개정 내용 요약해서 알려줘.")])
 }
 ```
-결과
+- 결과
 
 ```python
 test_data_5 = {
