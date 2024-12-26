@@ -203,7 +203,7 @@ def load_2024핵심개정세법():
 
     # Tabula로 PDF에서 표 데이터 읽기
     try:
-        tables = read_pdf(pdf_file, pages="9-12,15-24,27-28,31-39,43-70", stream=True, multiple_tables=True) # pages="19-44,47-71,75-161"
+        tables = read_pdf(pdf_file, pages="19-44,47-71,75-161", stream=True, multiple_tables=True) # pages="19-44,47-71,75-161"
         table_texts = [table.to_string(index=False, header=True) for table in tables]
     except Exception as e:
         print(f"Tabula Error with {pdf_file}: {e}")
@@ -217,7 +217,7 @@ def load_2024핵심개정세법():
         for i, text in enumerate(texts):
             text.metadata["page"] = i + 1      
 
-        page_ranges = [(9, 12), (15, 24), (27, 28), (31, 39), (43, 70)]
+        page_ranges = [(19, 44), (47, 71), (75, 161)]
         texts = [
             text for text in texts
             if any(start <= text.metadata.get("page", 0) <= end for start, end in page_ranges)
