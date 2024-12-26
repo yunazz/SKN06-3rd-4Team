@@ -245,8 +245,14 @@ def load_2024핵심개정세법():
     update_docs = []
 
     pattern1 = (
-        r"연말정산 주택자금･월세액 공제의 이해\n\d+|"  
-        r"\bNaN\b"
+        r"2\n0\n2\n5\n\s*달\n라\n지\n는\n\s*세\n금\n제\n도|"  
+        r"\n2\n0\n2\n4\n\s*세\n목\n별\n\s*핵\n심\n\s*개\n정\n세\n법|"
+        r"\n2\n0\n2\n4\n\s*개\n정\n세\n법\n\s*종\n전\n-\n개\n정\n사\n항\n\s*비\n교\n|"
+        r"\s*3\s*❚국민･기업\s*납세자용\s*|"
+        r"\s*2\s*0\s*2\s*4\s|"
+        r"\s한국세무사회\s|" 
+        r"\n7\n❚국민･기업 납세자용|"
+        r"\n71\n❚상세본|" 
     )
     pattern2 =r"([\uAC00-\uD7A3])\n+([\uAC00-\uD7A3])"
     pattern3 = r"\s+"
@@ -315,6 +321,24 @@ def load_주요공제계산사례():
 
         # 텍스트 문서와 표 문서를 결합
     docs.extend(text_docs + table_docs)
+
+    # 정규식 패턴화
+    update_docs = []
+    
+    pattern1 = (  
+        r"\bNaN\b"
+    )
+    pattern2 = r"\s+"
+    
+    for doc in docs:
+        if doc.page_content:
+            edit_content = re.sub(pattern1, "", doc.page_content)
+            edit_content = re.sub(pattern2, " " , edit_content)
+        else:
+            edit_content = ""
+        
+        updated_docs = Document(page_content=edit_content, metadata=doc.metadata)   
+        update_docs.append(updated_docs)
 
     # 텍스트를 청크로 분리
     splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
