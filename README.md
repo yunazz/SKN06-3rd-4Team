@@ -8,7 +8,7 @@
 
 ## 💻 팀 소개
 
-# 팀명: 節稅美人 - 절세미인
+# 팀명: 절세미인
 
 ![TaxTaxesGIF](https://github.com/user-attachments/assets/9fb562c4-7193-4f3c-87a8-68022176d9d8)
 
