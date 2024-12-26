@@ -38,21 +38,81 @@
 
 #### 2.1. 데이터 수집 및 전처리
 - **법제처**와 **국세청**에서 세법 관련 데이터 다운로드
-
-- 불필요 텍스트 제거
-  - 세법 관련 (개별소비세법~증권거래세법_시행령).pdf
-    ##### 머리말, 꼬리말 제거
+  
+- **pdf 로드**
+  - 2024_핵심_개정세법.pdf, 연말정산_신고안내.pdf, 연말정산_주택자금·월세액_공제의이해.pdf, 주요_공제_항목별_계산사례.pdf
+    #### pdf 로드(tabula + PyMuPDF)
+    tabula를 통해 표의 내용 읽어옴. <br>
+    PyMuPDF를 통해 text 읽어옴. <br>
+    필요없는 페이지 제외하고 읽어옴.
     ```python
+    try:
+    text_loader = PyMuPDFLoader(pdf_file)
+    texts = text_loader.load()
+
+    for i, text in enumerate(texts):
+        text.metadata["page"] = i + 1      
+
+    page_ranges = [(17, 426)]
+    texts = [
+        text for text in texts
+        if any(start <= text.metadata.get("page", 0) <= end for start, end in page_ranges)
+    ]
+    except Exception as e:
+        print(f"PyMuPDFLoader Error with {pdf_file}: {e}")
+        texts = []
+    ```
+
+- **불필요 텍스트 제거**
+  - 세법 관련 (개별소비세법~증권거래세법_시행령).pdf, 연말정산_Q&A.pdf
+    ##### - 머리말, 꼬리말 제거
+    ```
     rf'법제처\s*\d+\s*국가법령정보센터\n{file_name.replace('_', ' ')}\n'
     ```
-    ##### [ ]로 감싸진 텍스트 제거
-    ```python
-    r'\[[\s\S]*?\]'
+    ##### - [ ]로 감싸진 텍스트 제거
     ```
-    ##### < >로 감싸진  텍스트 제거
-    ```python
+    r'\[[\s\S]*?\]'
+    #text = re.sub(r'【.*?】', '', text, flags=re.MULTILINE)
+    ```
+    ##### - < >로 감싸진  텍스트 제거
+    ```
     r'<[\s\S]*?>'   # < >로 감싸진 텍스트 제거
     ```
+    ##### - 페이지 번호 패턴 제거
+    ```
+    text = re.sub(r'^- \d{1,3} -', '', text, flags=re.MULTILINE)
+    ```
+    
+  - 2024_핵심_개정세법.pdf, 연말정산_신고안내.pdf, 연말정산_주택자금·월세액_공제의이해.pdf
+    ##### - 머리말 및 사이드바 제거
+    ```
+    - r"2\n0\n2\n5\n\s*달\n라\n지\n는\n\s*세\n금\n제\n도|"  
+    - r"\n2\n0\n2\n4\n\s*세\n목\n별\n\s*핵\n심\n\s*개\n정\n세\n법|"
+    - r"\n2\n0\n2\n4\n\s*개\n정\n세\n법\n\s*종\n전\n-\n개\n정\n사\n항\n\s*비\n교\n|"
+    - r"\s*3\s*❚국민･기업\s*납세자용\s*|"
+    - r"\s*2\s*0\s*2\s*4\s|"
+    - r"\s한국세무사회\s|" 
+    - r"\n7\n❚국민･기업 납세자용|"
+    - r"\n71\n❚상세본|"
+    ```
+    ##### - 문장이 다음줄로 넘어가면서 생기는 \n 제거 
+    ```python3
+    r"([\uAC00-\uD7A3])\n+([\uAC00-\uD7A3])"
+    re.sub(pattern2, r"\1\2" , edit_content) #앞뒤글자 합치기
+    ```
+
+  - 연말정산_신고안내.pdf, 연말정산_주택자금·월세액_공제의이해.pdf, 주요_공제_항목별_계산사례.pdf
+    ##### - NaN 제거
+    ```
+    r"\bNaN\b"
+    ```
+    #### - 하나 이상의 공백문자를 한 개의 공백문자로 바꾸기
+    ```
+    - r"\s+"
+    - re.sub(pattern3, " ", edit_content)
+    ```
+    
+    
 
   
 
@@ -63,11 +123,35 @@
   chunk size로 split 하지 않고 조항별로 분리
   ```
 
+- 2024_핵심_개정세법.pdf, 연말정산_신고안내.pdf, 연말정산_주택자금·월세액_공제의이해.pdf, 주요_공제_항목별_계산사례.pdf
+  ```
+  chunk size = 2000, over lap = 100 으로 설정
+  ```
+
+- 연말정산_Q&A.pdf
+  ```
+   chunk size = 1000, over lap = 150 으로 설정
+  ```
+
 
 
 #### 2.3. 벡터 데이터베이스 구현 
 - 전처리된 데이터를 벡터화
 - 선택한 벡터 데이터베이스에 데이터 저장
+  ```
+  COLLECTION_NAME = "tax_law"
+  PERSIST_DIRECTORY = "tax"
+
+  def set_vector_store(documents):
+    embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
+
+    return Chroma.from_documents(
+        documents=documents,
+        embedding=embedding_model,
+        collection_name=COLLECTION_NAME,
+        persist_directory=PERSIST_DIRECTORY
+    )
+    ```
 
 #### 2.4. RAG 구현
 - 질의 처리 로직 구현
