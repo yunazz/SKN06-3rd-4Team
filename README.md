@@ -37,14 +37,14 @@
 ### 📌 2. 상세 내용
 
 #### 2.1. 데이터 수집 및 전처리
-- **법제처**와 **국세청**에서 세법 관련 데이터 다운로드
+-  [법제처](https://www.law.go.kr/LSW/main.html)와 [국세청](https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2304&cntntsId=238938)에서 세법 관련 데이터 다운로드
   
 - **pdf 로드**
   - 2024_핵심_개정세법.pdf, 연말정산_신고안내.pdf, 연말정산_주택자금·월세액_공제의이해.pdf, 주요_공제_항목별_계산사례.pdf
     #### pdf 로드(tabula + PyMuPDF)
-    tabula를 통해 표의 내용 읽어옴. <br>
-    PyMuPDF를 통해 text 읽어옴. <br>
-    필요없는 페이지 제외하고 읽어옴.
+    tabula를 통해 표의 내용 불러오기 <br>
+    PyMuPDF를 통해 text 불러오기 <br>
+    필요없는 페이지 제외
     ```python3
     try:
     text_loader = PyMuPDFLoader(pdf_file)
