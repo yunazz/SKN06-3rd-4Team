@@ -96,12 +96,14 @@ def load_연말정산신고안내():
     )
     pattern2 = r"([\uAC00-\uD7A3])\n+([\uAC00-\uD7A3])"
     pattern3 = r"\s+"
+    # pattern4 = r"\n+"
 
     for doc in docs:
         if doc.page_content:
             edit_content = re.sub(pattern1, "", doc.page_content)
             edit_content = re.sub(pattern2, r"\1\2", edit_content)
             edit_content = re.sub(pattern3, " ", edit_content)
+            # edit_content = re.sub(pattern4, r"\n", edit_content )
         else:
             edit_content = ""
 
