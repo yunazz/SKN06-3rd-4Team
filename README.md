@@ -15,7 +15,7 @@
 
 | [노원재] | [박서윤] | [박유나] | [유경상] | [전하연] |
 |:-------:|:-------:|:-------:|:-------:|:-------:|
-|<img src="https://github.com/user-attachments/assets/83778ae7-cead-4f34-ab0c-27d50300b23f" width="200" height="200">|<img src="https://github.com/user-attachments/assets/0889164e-66b0-4df2-b3f7-4ede25b6ee80" width="200" height="200">|<img src="https://github.com/user-attachments/assets/faf2d9c0-a945-4604-98bb-af2b1907acae"  width="200" height="200">|<img src="https://github.com/user-attachments/assets/bd07a4f7-65aa-49c2-9cfd-e54f41d08282" width="200" height="200">|<img src="https://github.com/user-attachments/assets/087fcd42-4884-425d-a7b0-fe866ff18b03" width="200" height="200">|
+|<img src="https://github.com/user-attachments/assets/83778ae7-cead-4f34-ab0c-27d50300b23f" width="160" height="160">|<img src="https://github.com/user-attachments/assets/0889164e-66b0-4df2-b3f7-4ede25b6ee80"  width="160" height="160">|<img src="https://github.com/user-attachments/assets/faf2d9c0-a945-4604-98bb-af2b1907acae"   width="160" height="160">|<img src="https://github.com/user-attachments/assets/bd07a4f7-65aa-49c2-9cfd-e54f41d08282"  width="160" height="160">|<img src="https://github.com/user-attachments/assets/087fcd42-4884-425d-a7b0-fe866ff18b03"  width="160" height="160">|
 |    절세남    |     절세미녀    |    절세미녀     |     절세남    |     절세미녀    |
 
 
