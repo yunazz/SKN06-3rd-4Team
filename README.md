@@ -9,13 +9,14 @@
 
 # 팀명: 절세미인
 
-![메인](https://github.com/user-attachments/assets/54c0d882-d501-40a9-8032-f3e2a1e20960)
+![메인](https://github.com/user-attachments/assets/9e4e832f-02db-4e7f-bbbf-a06a6e49be12)
 
 
 | [노원재] | [박서윤] | [박유나] | [유경상] | [전하연] |
 |:-------:|:-------:|:-------:|:-------:|:-------:|
-|![원재](https://github.com/user-attachments/assets/83778ae7-cead-4f34-ab0c-27d50300b23f)|![서윤](https://github.com/user-attachments/assets/0889164e-66b0-4df2-b3f7-4ede25b6ee80)|![유나](https://github.com/user-attachments/assets/faf2d9c0-a945-4604-98bb-af2b1907acae)|![경상](https://github.com/user-attachments/assets/bd07a4f7-65aa-49c2-9cfd-e54f41d08282)|![하연](https://github.com/user-attachments/assets/087fcd42-4884-425d-a7b0-fe866ff18b03)|
+|<img src="https://github.com/user-attachments/assets/83778ae7-cead-4f34-ab0c-27d50300b23f" width="150" height="150">|<img src="https://github.com/user-attachments/assets/0889164e-66b0-4df2-b3f7-4ede25b6ee80" width="150" height="150">|<img src="https://github.com/user-attachments/assets/faf2d9c0-a945-4604-98bb-af2b1907acae" width="150" height="150">|<img src="https://github.com/user-attachments/assets/bd07a4f7-65aa-49c2-9cfd-e54f41d08282" width="150" height="150">|<img src="https://github.com/user-attachments/assets/087fcd42-4884-425d-a7b0-fe866ff18b03" width="150" height="150">|
 |    절세남    |     절세미녀    |    절세미녀     |     절세남    |     절세미녀    |
+
 
 ---
 
