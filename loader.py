@@ -99,9 +99,9 @@ def load_process_split_doc_law(filename):
 
     # 전처리 - 반복 텍스트 삭제
     delete_patterns = [
-        rf"법제처\s*\d+\s*국가법령정보센터\n{filename.replace('_', ' ')}\n",  # delete_pattern_1
-        r'\[[\s\S]*?\]',  # delete_pattern_2
-        r'<[\s\S]*?>',    # delete_pattern_3
+        rf"법제처\s*\d+\s*국가법령정보센터\n{filename.replace('_', ' ')}\n",
+        r'\[[\s\S]*?\]', 
+        r'<[\s\S]*?>',
     ]
     
     full_text = " ".join([document.page_content for document in load_document])
