@@ -173,8 +173,8 @@ def load_주택자금공제의이해():
 
     cleaned_docs = []
 
-    pattern1 = r"연말정산 주택자금･월세액 공제의 이해\n\d+|" r"\bNaN\b"
-    pattern2 = r"([\uAC00-\uD7A3])\n+([\uAC00-\uD7A3])"
+    pattern1 = (r"연말정산 주택자금･월세액 공제의 이해\n\d+|" r"\bNaN\b")
+    pattern2 = r"([\uAC00-\uD7A3])\n+([\uAC00-\uD7A3])" ,
     pattern3 = r"\s+"
 
     for doc in docs:
