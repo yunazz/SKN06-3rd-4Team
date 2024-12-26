@@ -186,12 +186,36 @@
 - **검증 방법:** 사용자가 입력한 질문과 챗봇의 응답을 비교하고, 실제 법령에 명시된 내용을 확인하여 정확성, 관련성,  신뢰성 등 평가 지표 설정 및 측정
 - **결과:** 시스템이 제공하는 답변의 정확성과 일관성을 지속적으로 모니터링하여 시스템을 개선
 
-평가 지표
-faithfulness(신뢰성)
-answer_relevancy(답변 적합성)
-context_precision(문맥 정확성)
-context_recall(문맥 재현률)
+```python
+# LangChain 모델 래핑
+langchain_model = LangchainLLMWrapper(model)
 
+# 테스트 데이터 준비
+test_data = [
+    {
+        "question": "개별소비세법 제1조가 무엇인가요?",
+        "answer": chain.invoke("개별소비세법 제1조가 무엇인가요?"),
+        "contexts": [doc.page_content for doc in retriever.get_relevant_documents("개별소비세법 제1조가 무엇인가요?")],
+        "ground_truths": ["개별소비세는 특정한 물품, 특정한 장소 입장행위(入場行爲), 특정한 장소에서의 유흥음식행위(遊興飮食行爲) 및 특정한 장소에서의 영업행위에 대하여 부과한다."],
+        "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("개별소비세법 제1조가 무엇인가요?")])
+    }, ...추가로 검증할 데이터
+]
+```
+```python
+# Dataset 생성
+dataset = Dataset.from_list(test_data)
+
+# 평가 실행
+result = evaluate(
+    dataset,
+    metrics=[
+        faithfulness,       # 신뢰성
+        answer_relevancy,   # 답변 적합성
+        context_precision,  # 문맥 정확성
+        context_recall      # 문맥 재현률
+    ],
+    llm=langchain_model)
+```
 
 ---
 
