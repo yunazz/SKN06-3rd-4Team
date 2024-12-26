@@ -17,8 +17,6 @@ def load_process_split_doc(
     directory_path="data/tax_etc",
     page_ranges=[],
     table_pages_range='',
-    keyword="",
-    effective_year=None,
     replace_string=[]
     ):
 
@@ -49,9 +47,7 @@ def load_process_split_doc(
     
     text_docs = [
         Document(page_content=text.page_content, metadata={
-            "title": filename, 
-            "keyword": keyword,
-            "effective_year": effective_year, 
+            "filename": filename, 
             "source": pdf_file
         })
         for text in texts
@@ -59,9 +55,7 @@ def load_process_split_doc(
         
     table_docs = [
         Document(page_content=text, metadata={
-            "title": filename, 
-            "keyword": keyword,
-            "effective_year": effective_year, 
+            "filename": filename, 
             "source": f"{pdf_file} - Table {i + 1}"
         })
         for i, text in enumerate(table_texts)
@@ -91,27 +85,29 @@ def load_process_split_doc(
 
     return split_docs
 
-def load_process_split_doc_law(file_name):
+
+def load_process_split_doc_law(filename):
     
     """
     PDF 파일들을 처리하여 임베딩을 Chroma Vector Store에 저장합니다.
     """
 
-    file_path = f"data/tax_law/{file_name}.pdf"
+    file_path = f"data/tax_law/{filename}.pdf"
 
     loader = PyMuPDFLoader(file_path)
     load_document = loader.load()
 
     # 전처리 - 반복 텍스트 삭제
-    delete_pattern_1 = rf"법제처\s*\d+\s*국가법령정보센터\n{file_name.replace('_', ' ')}\n" 
-    delete_pattern_2 = r'\[[\s\S]*?\]'
-    delete_pattern_3 = r'<[\s\S]*?>'
+    delete_patterns = [
+        rf"법제처\s*\d+\s*국가법령정보센터\n{filename.replace('_', ' ')}\n",  # delete_pattern_1
+        r'\[[\s\S]*?\]',  # delete_pattern_2
+        r'<[\s\S]*?>',    # delete_pattern_3
+    ]
     
     full_text = " ".join([document.page_content for document in load_document])
     
-    full_text = re.sub(delete_pattern_1, "", full_text)
-    full_text=re.sub(delete_pattern_2, '', full_text)
-    full_text=re.sub(delete_pattern_3, '', full_text)
+    for pattern in delete_patterns:
+        full_text = re.sub(pattern, "", full_text)
     
     # 전처리 - split
     split_pattern = r"\s*\n(제\d+조(?:의\d+)?(?:\([^)]*\))?)(?=\s|$)"
@@ -141,18 +137,26 @@ def load_process_split_doc_law(file_name):
         connected_chunks.append(current_chunk.strip())
 
     for chunk in connected_chunks:
-        # pattern =  r"^(?:부칙-)?제\d+조(?:의\d*)?(?:\([^)]*\))?"
+        pattern =  r"^(?:부칙-)?제\d+조(?:의\d*)?(?:\([^)]*\))?"
 
-        # keyword = ''
-        # keyword += f"{file_name.replace("_", " ")} "
+        keyword = ''
+        keyword += f"{filename.replace("_", " ")} "
         
-        # match = re.search(pattern, chunk)
-        # if match:
-        #     word = match.group()
-        #     word = re.sub(r'\s+', ' ', word)
-        #     keyword += word 
-            # "keyword":file_name,
-        doc = Document(metadata={"title": file_name, "effective_year": 2025 }, page_content=chunk),
+        match = re.search(pattern, chunk)
+        if match:
+            word = match.group()
+            word = re.sub(r'\s+', ' ', word)
+            word = re.sub(r'\(+', ' (', word)
+            keyword += word 
+            
+        doc = Document(
+            metadata={
+                "source": f'{filename}.pdf', 
+                "keyword": filename.replace("_", " "), 
+                "description": f"{keyword}에 관한 문서입니다.",
+            }, 
+            page_content=chunk
+        ),
         
         chunk_docs.extend(doc)
         
