@@ -141,18 +141,18 @@ def load_process_split_doc_law(file_name):
         connected_chunks.append(current_chunk.strip())
 
     for chunk in connected_chunks:
-        pattern =  r"^(?:부칙-)?제\d+조(?:의\d*)?(?:\([^)]*\))?"
+        # pattern =  r"^(?:부칙-)?제\d+조(?:의\d*)?(?:\([^)]*\))?"
 
-        keyword = ''
-        keyword += file_name
+        # keyword = ''
+        # keyword += f"{file_name.replace("_", " ")} "
         
-        match = re.search(pattern, chunk)
-        if match:
-            word = match.group()
-            word = re.sub(r'\s+', ' ', word)
-            keyword += word 
-            
-        doc = Document(metadata={"title": file_name, "keyword":keyword, "effective_year": 2025 }, page_content=chunk),
+        # match = re.search(pattern, chunk)
+        # if match:
+        #     word = match.group()
+        #     word = re.sub(r'\s+', ' ', word)
+        #     keyword += word 
+            # "keyword":file_name,
+        doc = Document(metadata={"title": file_name, "effective_year": 2025 }, page_content=chunk),
         
         chunk_docs.extend(doc)
         
