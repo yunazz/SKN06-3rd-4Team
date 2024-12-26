@@ -174,7 +174,7 @@
   
   # Chain 구성 retriever(관련문서 조회) -> prompt_template(prompt 생성) -> model(정답) -> output parser
   chain = {"context":retriever, "question": RunnablePassthrough()} | prompt_template | model | parser
-```
+  ```
 
 
 #### 2.5. LLM 연동
