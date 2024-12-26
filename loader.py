@@ -108,6 +108,7 @@ def load_process_split_doc_law(filename):
     
     for pattern in delete_patterns:
         full_text = re.sub(pattern, "", full_text)
+        full_text = full_text.replace("(", " (")
     
     # 전처리 - split
     split_pattern = r"\s*\n(제\d+조(?:의\d+)?(?:\([^)]*\))?)(?=\s|$)"
