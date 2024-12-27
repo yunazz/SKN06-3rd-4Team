@@ -270,6 +270,22 @@ test_data_1 = {
     "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("주세법의 목적은 무엇인가요?")])
 }
 ```
+```python
+# Dataset 생성
+dataset = Dataset.from_list(test_data)
+
+# 평가 실행
+result = evaluate(
+    dataset,
+    metrics=[
+        faithfulness,       # 신뢰성
+        answer_relevancy,   # 답변 적합성
+        context_precision,  # 문맥 정확성
+        context_recall      # 문맥 재현률
+    ],
+    llm=langchain_model
+  )
+```
 - 결과
 <img src="https://github.com/user-attachments/assets/aefc9c6e-19dc-438c-9ba0-144985bc72c4">
 
@@ -321,22 +337,7 @@ test_data_5 = {
 - 결과<br/>
 <img src="https://github.com/user-attachments/assets/a12c1ba2-7b97-4088-8aa5-f016e57365dc">
 
-```python
-# Dataset 생성
-dataset = Dataset.from_list(test_data)
 
-# 평가 실행
-result = evaluate(
-    dataset,
-    metrics=[
-        faithfulness,       # 신뢰성
-        answer_relevancy,   # 답변 적합성
-        context_precision,  # 문맥 정확성
-        context_recall      # 문맥 재현률
-    ],
-    llm=langchain_model
-  )
-```
 
 ---
 ## 📌 4. 한 줄 회고📝
