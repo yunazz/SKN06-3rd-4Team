@@ -271,6 +271,7 @@ test_data_1 = {
 }
 ```
 - 결과
+<img src="https://github.com/user-attachments/assets/aefc9c6e-19dc-438c-9ba0-144985bc72c4">
 
 ```python
 test_data_2 = {
@@ -281,18 +282,20 @@ test_data_2 = {
   "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("인적공제에서 공제금액을 알려주세요.")])
 }
 ```
-- 결과
+- 결과<br/>
+<img src="https://github.com/user-attachments/assets/03540d97-2b6e-489a-b7c2-379949ba19cb">
 
 ```python
 test_data_3 = {
-  "question": "교육세법법 제1조가 무엇인가요?",
-  "answer": chain.invoke("교육세법법 제1조가 무엇인가요?"),
-  "contexts": [doc.page_content for doc in retriever.get_relevant_documents("교육세법법 제1조가 무엇인가요?")],
+  "question": "교육세법 제1조가 무엇인가요?",
+  "answer": chain.invoke("교육세법 제1조가 무엇인가요?"),
+  "contexts": [doc.page_content for doc in retriever.get_relevant_documents("교육세법 제1조가 무엇인가요?")],
   "ground_truths": ["목적은 교육의 질적 향상을 도모하기 위하여 필요한 교육재정의 확충에 드는 재원을 확보함을 목적이다."],
-  "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("교육세법법 제1조가 무엇인가요?")])
+  "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("교육세법 제1조가 무엇인가요?")])
 }
 ```
-- 결과
+- 결과<br/>
+<img src="https://github.com/user-attachments/assets/74d078ff-d40c-4e82-a68d-801f864f1121">
 
 ```python
 test_data_4 = {
@@ -303,7 +306,8 @@ test_data_4 = {
   "reference": "\n".join([doc.page_content for doc in retriever.get_relevant_documents("개정세법 중 기업세금 감면제도의 개정 내용 요약해서 알려줘.")])
 }
 ```
-- 결과
+- 결과<br/>
+<img src="https://github.com/user-attachments/assets/00f0d104-63a9-4ccb-be15-4acfd5703208">
 
 ```python
 test_data_5 = {
@@ -315,7 +319,7 @@ test_data_5 = {
 }
 ```
 - 결과<br/>
-<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-4Team/blob/main/image/test_result_5.png">
+<img src="https://github.com/user-attachments/assets/a12c1ba2-7b97-4088-8aa5-f016e57365dc">
 
 ```python
 # Dataset 생성
