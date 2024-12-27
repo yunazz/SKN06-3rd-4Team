@@ -61,7 +61,7 @@
 
 ### 2.2. 데이터 로드
 - **PyMuPDFLoader**
-  - 필요없는 페이지 제외하고 읽기기
+  - 필요없는 페이지 제외하고 읽기
 
     ```python3
     text_loader = PyMuPDFLoader(pdf_file)
